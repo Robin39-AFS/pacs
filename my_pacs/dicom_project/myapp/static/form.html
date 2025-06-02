@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patient Upload Form</title>
+  <link rel="stylesheet" href="./styles/form.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h1>Patient Upload Form</h1>
+    <form id="patient-upload-form" enctype="multipart/form-data">
+      <label>Select Existing Patient or Add New:
+        <select id="patient-id" name="patient_id">
+          <option value="">— Add New Patient —</option>
+        </select>
+      </label>
+      <div id="new-patient-details">
+        <label>Name: <input type="text" name="name" required /></label>
+        <label>Age: <input type="number" name="age" required /></label>
+        <label>Sex:
+          <select name="sex" required>
+            <option value="">— Select Sex —</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          </select>
+        </label>
+        <label>Body Part: <input type="text" name="body_part" required /></label>
+        <label>Modality:
+          <select name="modality" required>
+            <option value="">— Select Modality —</option>
+            <option value="CT">CT</option>
+            <option value="US">US</option>
+            <option value="XA">XA</option>
+            <option value="SC">SC</option>
+            <option value="AN">AN</option>
+            <option value="RF">RF</option>
+            <option value="OT">OT</option>
+            <option value="MR">MR</option>
+            <option value="CR">CR</option>
+            <option value="NM">NM</option>
+            <option value="PT">PT</option>
+            <option value="DX">DX</option>
+            <option value="PX">PX</option>
+          </select>
+        </label>
+        <label>Center: <input type="text" name="center" readonly /></label>
+        <label>Institute Name: <input type="text" name="institute_name" readonly /></label>
+        <label>Scan Date/Time: <input type="datetime-local" name="scan_datetime" required /></label>
+        <label>Emergency: <input type="checkbox" name="locked" /></label>
+      </div>
+      <label>DICOM File: <input type="file" name="dicom_file" required /></label>
+      <button type="submit">Submit</button>
+    </form>
+    <div id="form-message" class="hidden"></div>
+  </div>
+  <script src="./script/form.js"></script>
+</body>
+</html>

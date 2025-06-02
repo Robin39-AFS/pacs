@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doctor Portal</title>
+  <link rel="stylesheet" href="./styles/styles.css" />
+</head>
+<body>
+  <div class="doctor-portal">
+    <div class="doctor-header">
+      <h1>Doctor Portal</h1>
+      <header>
+    <nav>
+      <img src="logo.png" alt="PACS Logo" class="logo" />
+      <ul>
+        <li><a href="#">Password</a></li>
+        <li><a href="#">Templates</a></li>
+        <li><a href="#">Academics</a></li>
+        <li><a href="#" onclick="logout()">Log Off</a></li>
+      </ul>
+    </nav>
+  </header>
+    </div>
+    <div class="doctor-selection">
+      <select id="doctor-name">
+        <option value="">— Select Doctor —</option>
+        <option value="Dr. Alice Smith">Dr. Alice Smith</option>
+        <option value="Dr. Bob Johnson">Dr. Bob Johnson</option>
+        <option value="Dr. Razib Bari">Dr. Razib Bari</option>
+      </select>
+    </div>
+    <section class="search-panel">
+      <div class="search-inputs">
+        <input type="text" id="patient-name" placeholder="Patient Name" />
+        <input type="text" id="patient-id" placeholder="Patient ID" />
+        <input type="date" id="scan-start-date" />
+        <input type="date" id="scan-end-date" />
+        <select id="status">
+          <option value="All">All</option>
+          <option value="Not Assigned">Not Assigned</option>
+          <option value="Unreported">Unreported</option>
+          <option value="Draft">Draft</option>
+          <option value="Reviewed">Reviewed</option>
+          <option value="Reported">Reported</option>
+        </select>
+        <select id="center">
+          <option value="ALL">All Centers</option>
+        </select>
+        <label>
+          <input type="checkbox" id="emergency" />
+          Show only Emergency Cases
+        </label>
+      </div>
+      <div class="modality-filter">
+        <label>
+          <input type="checkbox" id="modality-all" checked />
+          ALL
+        </label>
+        <div class="modality-row">
+          <label><input type="checkbox" class="modality-checkbox" value="CT" checked /> CT</label>
+          <label><input type="checkbox" class="modality-checkbox" value="US" checked /> US</label>
+          <label><input type="checkbox" class="modality-checkbox" value="XA" checked /> XA</label>
+          <label><input type="checkbox" class="modality-checkbox" value="SC" checked /> SC</label>
+          <label><input type="checkbox" class="modality-checkbox" value="AN" checked /> AN</label>
+          <label><input type="checkbox" class="modality-checkbox" value="RF" checked /> RF</label>
+          <label><input type="checkbox" class="modality-checkbox" value="OT" checked /> OT</label>
+        </div>
+        <div class="modality-row">
+          <label><input type="checkbox" class="modality-checkbox" value="MR" checked /> MR</label>
+          <label><input type="checkbox" class="modality-checkbox" value="CR" checked /> CR</label>
+          <label><input type="checkbox" class="modality-checkbox" value="NM" checked /> NM</label>
+          <label><input type="checkbox" class="modality-checkbox" value="PT" checked /> PT</label>
+          <label><input type="checkbox" class="modality-checkbox" value="DX" checked /> DX</label>
+          <label><input type="checkbox" class="modality-checkbox" value="PX" checked /> PX</label>
+        </div>
+      </div>
+      <button onclick="searchPatients()">Search</button>
+    </section>
+    <section class="study-list" id="patient-list" style="display:none;">
+      <table>
+        <thead>
+          <tr>
+            <th>Patient Name</th>
+            <th>Patient ID</th>
+            <th>Age</th>
+            <th>Sex</th>
+            <th>Body Part</th>
+            <th>Modality</th>
+            <th>Center</th>
+            <th>Institute</th>
+            <th>Scan Date/Time</th>
+            <th>Status</th>
+            <th>Upload Report</th>
+            <th>View Image</th>
+          </tr>
+        </thead>
+        <tbody id="patient-table-body"></tbody>
+      </table>
+    </section>
+  </div>
+  <script src="./script/doctor.js"></script>
+</body>
+</html>

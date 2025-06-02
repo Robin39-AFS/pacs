@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/static/styles/styles.css">
+</head>
+<body>
+  <div class="form-container">
+    <h1>Login</h1>
+    <form id="login-form">
+      <label>Username: <input type="text" name="username" required></label>
+      <label>Password: <input type="password" name="password" required></label>
+      <button type="submit">Login</button>
+    </form>
+    <div id="login-message" class="hidden"></div>
+  </div>
+  <script>
+    const baseUrl = 'http://127.0.0.1:8000';
+
+    // Check if user is already logged in
+    window.onload = () => {
+      const token = localStorage.getItem('token');
+      const role = localStorage.getItem('role');
+      if (token && role) {
+        // Redirect based on role
+        if (role === 'Admin') {
+          window.location.href = '/admin/';
+        } else if (role === 'SubAdmin' || role === 'Center') {
+          window.location.href = '/static/index.html';
+        } else if (role === 'Doctor') {
+          window.location.href = '/static/doctor.html';
+        }
+      }
+    };
+
+    document.getElementById('login-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const form = e.target;
+      const msgEl = document.getElementById('login-message');
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
+
+      try {
+        const res = await fetch(`${baseUrl}/api/login/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Login failed');
+
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('role', result.role);
+        if (result.center_name) localStorage.setItem('center_name', result.center_name);
+        if (result.institute_name) localStorage.setItem('institute_name', result.institute_name);
+
+        window.location.href = result.redirect;
+      } catch (err) {
+        msgEl.textContent = `❌ ${err.message}`;
+        msgEl.className = 'error';
+      }
+    });
+  </script>
+</body>
+</html>
